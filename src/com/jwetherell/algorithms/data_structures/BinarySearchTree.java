@@ -678,9 +678,9 @@ public class BinarySearchTree<T extends Comparable<T>> implements ITree<T> {
                 String side = "left";
                 if (node.equals(node.parent.greater))
                     side = "right";
-                builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + side + ") " + node.id + "\n");
+                builder.append(prefix + (isTail ? "!-- " : "|-- ") + "(" + side + ") " + node.id + "\n");
             } else {
-                builder.append(prefix + (isTail ? "└── " : "├── ") + node.id + "\n");
+            	builder.append(prefix + (isTail ? "!-- " : "|-- ") + node.id + "\n");
             }
             List<Node<T>> children = null;
             if (node.lesser != null || node.greater != null) {
@@ -692,10 +692,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements ITree<T> {
             }
             if (children != null) {
                 for (int i = 0; i < children.size() - 1; i++) {
-                    builder.append(getString(children.get(i), prefix + (isTail ? "    " : "│   "), false));
+                	builder.append(getString(children.get(i), prefix + (isTail ? "    " : "|   "), false));
                 }
                 if (children.size() >= 1) {
-                    builder.append(getString(children.get(children.size() - 1), prefix + (isTail ? "    " : "│   "), true));
+                	builder.append(getString(children.get(children.size() - 1), prefix + (isTail ? "    " : "|   "), true));
                 }
             }
 

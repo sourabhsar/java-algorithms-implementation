@@ -257,7 +257,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
     protected static class AVLNode<T extends Comparable<T>> extends Node<T> {
 
-        protected int height = 1;
+        protected int height = 0;
 
         /**
          * Constructor for an AVL node
@@ -284,12 +284,12 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
          * Updates the height of this node based on it's children.
          */
         protected int updateHeight() {
-            int lesserHeight = 0;
+            int lesserHeight = -1;
             if (lesser != null) {
                 AVLNode<T> lesserAVLNode = (AVLNode<T>) lesser;
                 lesserHeight = lesserAVLNode.height;
             }
-            int greaterHeight = 0;
+            int greaterHeight = -1;
             if (greater != null) {
                 AVLNode<T> greaterAVLNode = (AVLNode<T>) greater;
                 greaterHeight = greaterAVLNode.height;
@@ -352,7 +352,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
         private static <T extends Comparable<T>> String getString(AVLNode<T> node, String prefix, boolean isTail) {
             StringBuilder builder = new StringBuilder();
 
-            builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + node.height + ") " + node.id + "\n");
+            builder.append(prefix + (isTail ? "!-- " : "|-- ") + "(" + node.height + ") " + node.id + "\n");
             List<Node<T>> children = null;
             if (node.lesser != null || node.greater != null) {
                 children = new ArrayList<Node<T>>(2);
@@ -363,10 +363,10 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T> {
             }
             if (children != null) {
                 for (int i = 0; i < children.size() - 1; i++) {
-                    builder.append(getString((AVLNode<T>) children.get(i), prefix + (isTail ? "    " : "│   "), false));
+                	builder.append(getString((AVLNode<T>) children.get(i), prefix + (isTail ? "    " : "|   "), false));
                 }
                 if (children.size() >= 1) {
-                    builder.append(getString((AVLNode<T>) children.get(children.size() - 1), prefix + (isTail ? "    " : "│   "), true));
+                	builder.append(getString((AVLNode<T>) children.get(children.size() - 1), prefix + (isTail ? "    " : "|   "), true));
                 }
             }
 
